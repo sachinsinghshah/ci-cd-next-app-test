@@ -12,11 +12,8 @@ jobs:
       - run: |
           echo "${{secrets.SSH_PRIVATE_KEY}}" &> ~/ssh_key
           mkdir .ssh
-          echo "${{secrets.KNOWN_HOSTS}}" &> ~/.ssh/known_hosts
-          ssh -i ~/ssh_key root@139.59.17.85
-          cd ci-cd-next-app-test/ && git pull
-          pnpm install
-          pnpm run build
-          pm2 restart fe-server
-          pm2 restart http-server
-          pm2 restart ws-server
+          echo "${{secrets.KNOWN_HOSTS}}" &> /home/runner/.ssh/known_hosts
+          chmod 700 /home/runner/ssh_key
+          ssh -i ~/ssh_key root@139.59.17.85 -t " cd ci-cd-next-app-test/ && git pull origin main && pnpm install && pnpm run build && pm2 restart fe-server && pm2 restart http-server && pm2 restart ws-server"
+          
+          
