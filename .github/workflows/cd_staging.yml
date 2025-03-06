@@ -10,11 +10,11 @@ jobs:
     name: Deploy everything to the staging cluster
     steps:
       - run: |
-        echo ${{secrets.SSH_PRIVATE_KEY}} &> ~/ssh_key
-        ssh -i ~/ssh_key root@139.59.17.85
-        cd ci-cd-next-app-test/ && git pull
-        pnpm install
-        pnpm run build
-        pm2 restart fe-server
-        pm2 restart http-server
-        pm2 restart ws-server
+          echo ${{secrets.SSH_PRIVATE_KEY}} &> ~/ssh_key
+          ssh -i ~/ssh_key root@139.59.17.85
+          cd ci-cd-next-app-test/ && git pull
+          pnpm install
+          pnpm run build
+          pm2 restart fe-server
+          pm2 restart http-server
+          pm2 restart ws-server
